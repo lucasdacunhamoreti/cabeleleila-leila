@@ -11,4 +11,13 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.post("/filter", async (req, res) => {
+  try {
+    const clientes = await Cliente.find(req.body.filters);
+    res.json({ error: false, clientes });
+  } catch (err) {
+    res.json({ error: true, message: err.message });
+  }
+});
+
 module.exports = router;
