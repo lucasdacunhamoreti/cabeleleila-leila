@@ -4,16 +4,36 @@ import { filterAgendamentos } from "../../store/modules/agendamento/actions";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import moment from "moment";
+import "moment/locale/pt-br";
+
 import util from "../../util";
 
+moment.locale("pt-br");
+
 const localizer = momentLocalizer(moment);
+
+const messages = {
+  allDay: "Dia Inteiro",
+  previous: "Anterior",
+  next: "Próximo",
+  today: "Hoje",
+  month: "Mês",
+  week: "Semana",
+  day: "Dia",
+  agenda: "Agenda",
+  date: "Data",
+  time: "Hora",
+  event: "Evento",
+  noEventsInRange: "Não há eventos neste período.",
+  showMore: (count) => `+ Ver mais (${count})`,
+};
 
 const Agendamentos = () => {
   const dispatch = useDispatch();
   const { agendamentos } = useSelector((state) => state.agendamento);
 
   const formatEventos = () => {
-    const listaEventos = agendamentos.map((agendamento) => ({
+    return agendamentos.map((agendamento) => ({
       resource: { agendamento },
       title: `${agendamento.servicoId.titulo} - ${agendamento.clienteId.nome} - ${agendamento.colaboradorId.nome}`,
       start: moment(agendamento.data).toDate(),
@@ -26,7 +46,6 @@ const Agendamentos = () => {
         )
         .toDate(),
     }));
-    return listaEventos;
   };
 
   useEffect(() => {
@@ -39,20 +58,16 @@ const Agendamentos = () => {
   }, [dispatch]);
 
   const formatRange = (range) => {
-    let finalRange = {};
     if (Array.isArray(range)) {
-      finalRange = {
+      return {
         start: moment(range[0]).format("YYYY-MM-DD"),
         end: moment(range[range.length - 1]).format("YYYY-MM-DD"),
       };
-    } else {
-      finalRange = {
-        start: moment(range.start).format("YYYY-MM-DD"),
-        end: moment(range.end).format("YYYY-MM-DD"),
-      };
     }
-
-    return finalRange;
+    return {
+      start: moment(range.start).format("YYYY-MM-DD"),
+      end: moment(range.end).format("YYYY-MM-DD"),
+    };
   };
 
   return (
@@ -68,9 +83,10 @@ const Agendamentos = () => {
             onSelectEvent={() => {}}
             events={formatEventos()}
             defaultView="week"
-            selectable={true}
-            popup={true}
+            selectable
+            popup
             style={{ height: 600 }}
+            messages={messages}
           />
         </div>
       </div>
