@@ -2,7 +2,14 @@ const express = require("express");
 const router = express.Router();
 const Servico = require("../models/servico");
 
-router.get("/servicos", async (_req, res) => {
+router.post("/", async (_req, res) => {
+  try {
+  } catch (err) {
+    res.json({ error: true, message: err.message });
+  }
+});
+
+router.get("/", async (_req, res) => {
   try {
     const servicos = await Servico.find({ status: "A" }).select("_id titulo");
     res.json({
