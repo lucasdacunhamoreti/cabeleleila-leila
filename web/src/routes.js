@@ -10,7 +10,7 @@ const AppRoutes = () => {
   return (
     <>
       <Header />
-      <div className="container-fluid h-100" style={{ backgroundColor: "red" }}>
+      <div className="container-fluid h-100">
         <div className="row h-100">
           <Router>
             <Sidebar />
