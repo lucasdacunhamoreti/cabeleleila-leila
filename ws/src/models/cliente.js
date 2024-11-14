@@ -18,10 +18,6 @@ const cliente = new Schema({
     type: String,
     required: true,
   },
-  foto: {
-    type: String,
-    required: true,
-  },
   dataNascimento: {
     type: String,
     required: true,

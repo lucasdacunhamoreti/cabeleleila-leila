@@ -13,7 +13,11 @@ router.get("/", async (_req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const cliente = await new Cliente(req.body).save();
+    const cliente = await new Cliente({
+      ...req.body.cliente,
+      senha: "12345",
+    }).save();
+
     res.json({ cliente });
   } catch (err) {
     res.json({ error: true, message: err.message });
