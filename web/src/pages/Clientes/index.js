@@ -1,96 +1,220 @@
 import React, { useEffect } from "react";
 
 import Table from "../../components/Table";
-import { allClientes } from "../../store/modules/cliente/actions";
+import {
+  allClientes,
+  updateCliente,
+  filterCliente,
+  addCliente,
+} from "../../store/modules/cliente/actions";
+
+import "rsuite/dist/rsuite.min.css";
+import "rsuite/styles/index.less";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { Button } from "rsuite";
-
-const clientes = [
-  {
-    id: "1a2b3c",
-    nome: "Lucas Silva",
-    telefone: "(11) 91234-5678",
-    email: "lucas.silva@example.com",
-  },
-  {
-    id: "4d5e6f",
-    nome: "Mariana Souza",
-    telefone: "(21) 99876-5432",
-    email: "mariana.souza@example.com",
-  },
-  {
-    id: "7g8h9i",
-    nome: "João Oliveira",
-    telefone: "(31) 98765-4321",
-    email: "joao.oliveira@example.com",
-  },
-  {
-    id: "0j1k2l",
-    nome: "Fernanda Pereira",
-    telefone: "(41) 97654-3210",
-    email: "fernanda.pereira@example.com",
-  },
-  {
-    id: "3m4n5o",
-    nome: "Ana Costa",
-    telefone: "(51) 96543-2109",
-    email: "ana.costa@example.com",
-  },
-  {
-    id: "6p7q8r",
-    nome: "Gabriel Ferreira",
-    telefone: "(61) 95432-1098",
-    email: "gabriel.ferreira@example.com",
-  },
-  {
-    id: "9s0t1u",
-    nome: "Juliana Almeida",
-    telefone: "(71) 94321-0987",
-    email: "juliana.almeida@example.com",
-  },
-  {
-    id: "2v3w4x",
-    nome: "Carlos Martins",
-    telefone: "(81) 93210-9876",
-    email: "carlos.martins@example.com",
-  },
-  {
-    id: "5y6z7a",
-    nome: "Bianca Gomes",
-    telefone: "(91) 92109-8765",
-    email: "bianca.gomes@example.com",
-  },
-  {
-    id: "8b9c0d",
-    nome: "Rafael Rodrigues",
-    telefone: "(71) 91098-7654",
-    email: "rafael.rodrigues@example.com",
-  },
-];
+import { Button, Drawer, Message, Notification } from "rsuite";
+import util from "../../services/util";
+import { notification } from "../../services/rsuite";
 
 const Clientes = () => {
   const dispatch = useDispatch();
-  const { clientes } = useSelector((state) => state.clientes);
+  const { clientes, form, components, behavior, cliente } = useSelector(
+    (state) => state.cliente
+  );
+
+  const setComponents = (component, state) => {
+    dispatch(
+      updateCliente({
+        components: { ...components, [component]: state },
+      })
+    );
+  };
 
   useEffect(() => {
     dispatch(allClientes());
   }, []);
 
+  const setCliente = (key, value) => {
+    dispatch(
+      updateCliente({
+        cliente: { ...cliente, [key]: value },
+      })
+    );
+  };
+
+  const onRowClick = (cliente) => {
+    dispatch(
+      updateCliente({
+        cliente,
+        behavior: "update",
+      })
+    );
+    setComponents("drawer", true);
+  };
+
+  const save = () => {
+    if (
+      !util.allFields(cliente, [
+        "email",
+        "nome",
+        "telefone",
+        "dataNascimento",
+        "sexo",
+      ])
+    ) {
+      notification("error", {
+        // placement: "Calma lá!",
+        title: "Ops...",
+        description: "Antes de prosseguir, preencha todos os campos!",
+      });
+      return false;
+    }
+
+    dispatch(addCliente());
+  };
+
   return (
     <div className="col p-5 overflow-auto h-100">
+      <Drawer
+        open={components.drawer}
+        size="sm"
+        onClose={() => setComponents("drawer", false)}
+      >
+        <Drawer.Body>
+          <h3>Criar novo cliente</h3>
+          <div className="row mt-3">
+            {behavior !== "create" && (
+              <div className="col-12 my-3">
+                <Message>
+                  <strong>Peça ao cliente para baixar o app!</strong> Se você
+                  precisa editar alguma informação do cliente, peça para que ele
+                  baixa o aplicativo e faça as alterações.
+                </Message>
+                <Button block color="primary" className="mt-1">
+                  Baixar o Aplicativo
+                </Button>
+              </div>
+            )}
+            <div className="form-group col-12">
+              <b className="">E-mail</b>
+              <div class="input-group mb-3">
+                <input
+                  type="email"
+                  class="form-control"
+                  placeholder="E-mail do cliente"
+                  disabled={behavior !== "create"}
+                  onChange={(e) => {
+                    setCliente("email", e.target.value);
+                  }}
+                  value={cliente.email}
+                />
+                {behavior === "create" && (
+                  <div class="input-group-append">
+                    <Button
+                      appearance="primary"
+                      loading={form.filtering}
+                      disabled={form.filtering}
+                      onClick={() => {
+                        dispatch(
+                          filterCliente({
+                            filters: { email: cliente.email, status: "A" },
+                          })
+                        );
+                      }}
+                    >
+                      Pesquisar
+                    </Button>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="form-group col-6">
+              <b className="">Nome</b>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Nome do Cliente"
+                disabled={form.disabled}
+                value={cliente.nome}
+                onChange={(e) => setCliente("nome", e.target.value)}
+              />
+            </div>
+            <div className="form-group col-6">
+              <b className="">Telefone / Whatsapp</b>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Telefone / Whatsapp do Cliente"
+                disabled={form.disabled}
+                value={cliente.telefone}
+                onChange={(e) => setCliente("telefone", e.target.value)}
+              />
+            </div>
+
+            <div className="form-group col-6">
+              <b className="">Data de Nascimento</b>
+              <input
+                type="date"
+                className="form-control"
+                disabled={form.disabled}
+                value={cliente.dataNascimento}
+                onChange={(e) => setCliente("dataNascimento", e.target.value)}
+              />
+            </div>
+            <div className="form-group col-6">
+              <b>Sexo</b>
+              <select
+                disabled={form.disabled}
+                className="form-control"
+                value={cliente.sexo}
+                onChange={(e) => setCliente("sexo", e.target.value)}
+              >
+                <option value="M">Masculino</option>
+                <option value="F">Feminino</option>
+              </select>
+            </div>
+          </div>
+
+          {behavior === "create" && (
+            <Button
+              block
+              className="btn-lg mt-3"
+              color={behavior === "create" ? "green" : "red"}
+              size="lg"
+              loading={form.saving}
+              onClick={() => {
+                if (behavior === "create") {
+                  save();
+                } else {
+                  setComponents("confirmDelete", true);
+                }
+              }}
+            >
+              Salvar cliente
+            </Button>
+          )}
+        </Drawer.Body>
+      </Drawer>
       <div className="row">
         <div className="col-12">
           <div className="w-100 d-flex justify-content-between">
             <h2 className="mb-4 mt-0">Clientes</h2>
             <div>
-              <button className="btn btn-primary btn-lg">
+              <button
+                className="btn btn-primary btn-lg"
+                onClick={() => {
+                  dispatch(updateCliente({ behavior: "create" }));
+                  setComponents("drawer", true);
+                }}
+              >
                 <span className="mdi mdi-plus">Novo Cliente</span>
               </button>
             </div>
           </div>
           <Table
+            loading={form.filtering}
             data={clientes}
             config={[
               { label: "Nome", key: "nome", flexGrow: 1 },
@@ -98,8 +222,8 @@ const Clientes = () => {
               { label: "E-mail", key: "email", flexGrow: 1 },
             ]}
             actions={() => <Button size="xs">Ver informações</Button>}
-            onRowClick={(e) => {
-              alert(e.nome);
+            onRowClick={(c) => {
+              onRowClick(c);
             }}
           />
         </div>

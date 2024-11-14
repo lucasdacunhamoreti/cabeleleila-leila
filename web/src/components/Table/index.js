@@ -4,13 +4,7 @@ import React from "react";
 import "rsuite/dist/rsuite.min.css";
 const { Cell, HeaderCell, Column } = Table;
 
-const TableComponent = ({ data, config, actions, onRowClick }) => {
-  const [loading, setLoading] = React.useState(true);
-
-  setTimeout(() => {
-    setLoading(false);
-  }, 1000);
-
+const TableComponent = ({ data, config, actions, onRowClick, loading }) => {
   const renderLoading = () => {
     return <Loader center backdrop content="Loading..." />;
   };
