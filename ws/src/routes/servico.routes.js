@@ -11,11 +11,12 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.post("/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
-    const { servico } = req.body;
-    await new Servico.findByIdAndUpdate(req.params.id, servico);
-    res.json({ servico });
+    const { _id, __v, createdAt, ...updatedData } = req.body;
+
+    await new Servico.findByIdAndUpdate(req.params.id, updatedData);
+    res.json({ servico: req.body });
   } catch (err) {
     res.json({ error: true, message: err.message });
   }
@@ -26,6 +27,17 @@ router.get("/", async (_req, res) => {
     const servicos = await Servico.find({ status: "A" }).select("_id titulo");
     res.json({
       servicos: servicos.map((s) => ({ label: s.titulo, value: s._id })),
+    });
+  } catch (err) {
+    res.json({ error: true, message: err.message });
+  }
+});
+
+router.get("/salao", async (_req, res) => {
+  try {
+    const servicos = await Servico.find({ status: "A" });
+    res.json({
+      servicos,
     });
   } catch (err) {
     res.json({ error: true, message: err.message });
