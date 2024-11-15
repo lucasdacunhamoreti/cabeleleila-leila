@@ -15,7 +15,7 @@ router.put("/:id", async (req, res) => {
   try {
     const { _id, __v, createdAt, ...updatedData } = req.body;
 
-    await new Servico.findByIdAndUpdate(req.params.id, updatedData);
+    await Servico.findByIdAndUpdate(req.params.id, updatedData);
     res.json({ servico: req.body });
   } catch (err) {
     res.json({ error: true, message: err.message });
