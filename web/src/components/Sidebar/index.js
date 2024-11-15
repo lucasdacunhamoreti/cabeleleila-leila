@@ -9,7 +9,13 @@ const Sidebar = () => {
 
   return (
     <sidebar className="col-2 h-100">
-      <img src={logo} className="img-fluid px-3 py-4" alt="Logo" />
+      <img
+        src={logo}
+        className="img-fluid px-3 py-4"
+        width={550}
+        height={550}
+        alt="Logo"
+      />
       <ul>
         {isAdmin && (
           <li>
