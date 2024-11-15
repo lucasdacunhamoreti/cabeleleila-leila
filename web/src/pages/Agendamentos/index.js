@@ -8,7 +8,6 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import {
   TagPicker,
   Drawer,
-  Modal,
   Checkbox,
   DatePicker,
   Button,
@@ -72,6 +71,8 @@ const Agendamentos = () => {
   };
 
   const onHorarioClick = (horario) => {
+    console.log(horario);
+
     dispatch(
       updateHorario({
         horario,
@@ -204,65 +205,6 @@ const Agendamentos = () => {
                 }}
               />
             </div>
-            {/* <div className="col-12 mt-3">
-              <b>Especialidades disponíveis</b>
-              <TagPicker
-                size="lg"
-                block
-                data={servicos}
-                value={horario.especialidades}
-                onChange={(e) => {
-                  setHorario("especialidades", e);
-                }}
-              />
-              <Checkbox
-                disabled={horario.especialidades.length === servicos.length}
-                checked={horario.especialidades.length === servicos.length}
-                onChange={(v, selected) => {
-                  if (selected) {
-                    setHorario(
-                      "especialidades",
-                      servicos.map((s) => s.value)
-                    );
-                  } else {
-                    setHorario("especialidades", []);
-                  }
-                }}
-              >
-                {" "}
-                Selecionar Todas
-              </Checkbox>
-            </div> */}
-            {/* <div className="col-12 mt-3">
-              <b>Colaboradores disponíveis</b>
-              <TagPicker
-                size="lg"
-                block
-                data={colaboradores}
-                disabled={horario.especialidades.length === 0}
-                value={horario.colaboradores}
-                onChange={(e) => {
-                  setHorario("colaboradores", e);
-                }}
-              />
-              <Checkbox
-                disabled={horario.colaboradores.length === colaboradores.length}
-                checked={horario.colaboradores.length === colaboradores.length}
-                onChange={(v, selected) => {
-                  if (selected) {
-                    setHorario(
-                      "colaboradores",
-                      colaboradores.map((s) => s.value)
-                    );
-                  } else {
-                    setHorario("colaboradores", []);
-                  }
-                }}
-              >
-                {" "}
-                Selecionar Todos
-              </Checkbox>
-            </div> */}
           </div>
           <Button
             loading={form.saving}
@@ -292,34 +234,6 @@ const Agendamentos = () => {
         </Drawer.Body>
       </Drawer>
 
-      <Modal
-        show={components.confirmDelete}
-        onHide={() => setComponents("confirmDelete", false)}
-        size="xs"
-      >
-        <Modal.Body>
-          {/* <Icon
-            icon="remind"
-            style={{
-              color: "#ffb300",
-              fontSize: 24,
-            }}
-          /> */}
-          {"  "} Tem certeza que deseja excluir? Essa ação será irreversível!
-        </Modal.Body>
-        <Modal.Footer>
-          <Button loading={form.saving} onClick={() => remove()} color="red">
-            Sim, tenho certeza!
-          </Button>
-          <Button
-            onClick={() => setComponents("confirmDelete", false)}
-            appearance="subtle"
-          >
-            Cancelar
-          </Button>
-        </Modal.Footer>
-      </Modal>
-
       <div className="row">
         <div className="col-12">
           <div className="w-100 d-flex justify-content-between">
@@ -343,11 +257,23 @@ const Agendamentos = () => {
           <Calendar
             localizer={localizer}
             onSelectEvent={(e) => {
+              const { horario } = e.resource;
+
+              const agora = moment();
+              const inicio = moment(horario.inicio);
+              const doisDiasAntes = inicio.subtract(2, "days");
+
               if (!isAdmin) {
-                alert("Você não tem permissão para editar esse horário.");
+                if (agora.isAfter(doisDiasAntes)) {
+                  alert(
+                    "Você não tem permissão para editar esse horário. Para mais informações, entre em contato com o suporte pelo telefone (99) 99999-9999."
+                  );
+                } else {
+                  alert("Você não tem permissão para editar esse horário.");
+                }
                 return;
               }
-              const { horario } = e.resource;
+
               onHorarioClick(horario);
             }}
             onSelectSlot={(slotInfo) => {
