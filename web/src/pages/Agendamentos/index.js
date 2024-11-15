@@ -259,17 +259,17 @@ const Agendamentos = () => {
             onSelectEvent={(e) => {
               const { horario } = e.resource;
 
-              const agora = moment();
-              const inicio = moment(horario.inicio);
-              const doisDiasAntes = inicio.subtract(2, "days");
-
               if (!isAdmin) {
-                if (agora.isAfter(doisDiasAntes)) {
+                if (
+                  moment().isSameOrAfter(
+                    moment(horario.inicio).subtract(2, "days")
+                  )
+                ) {
                   alert(
-                    "Você não tem permissão para editar esse horário. Para mais informações, entre em contato com o suporte pelo telefone (99) 99999-9999."
+                    "Você não tem permissão para editar esse horário. Para mais informações, entre em contato pelo telefone (99) 99999-9999."
                   );
                 } else {
-                  alert("Você não tem permissão para editar esse horário.");
+                  onHorarioClick(horario);
                 }
                 return;
               }
