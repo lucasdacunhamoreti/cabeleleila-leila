@@ -2,13 +2,6 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const horario = new Schema({
-  especialidades: [
-    {
-      type: mongoose.Types.ObjectId,
-      ref: "Servico",
-      required: true,
-    },
-  ],
   dias: {
     type: [Number],
     required: true,
@@ -19,6 +12,11 @@ const horario = new Schema({
   },
   fim: {
     type: Date,
+    required: true,
+  },
+  clienteId: {
+    type: mongoose.Types.ObjectId,
+    ref: "Cliente",
     required: true,
   },
   createdAt: {
