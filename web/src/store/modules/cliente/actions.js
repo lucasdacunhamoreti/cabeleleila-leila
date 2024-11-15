@@ -19,7 +19,3 @@ export function resetCliente() {
 export function allClientes() {
   return { type: types.ALL_CLIENTES };
 }
-
-export function unlinkCliente(clienteId) {
-  return { type: types.UNLINK_CLIENTE, clienteId };
-}

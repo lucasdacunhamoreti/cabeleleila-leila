@@ -13,7 +13,7 @@ import "rsuite/styles/index.less";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { Button, Drawer, Message, Notification } from "rsuite";
+import { Button, Drawer, Message } from "rsuite";
 import util from "../../services/util";
 import { notification } from "../../services/rsuite";
 
@@ -64,7 +64,7 @@ const Clientes = () => {
       ])
     ) {
       notification("error", {
-        // placement: "Calma lá!",
+        placement: "Calma lá!",
         title: "Ops...",
         description: "Antes de prosseguir, preencha todos os campos!",
       });

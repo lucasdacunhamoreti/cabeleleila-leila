@@ -115,54 +115,8 @@ export function* addCliente() {
   }
 }
 
-export function* unlinkCliente({ payload }) {
-  const { form, components, cliente } = yield select((state) => state.cliente);
-
-  try {
-    yield put(updateCliente({ form: { ...form, saving: true } }));
-
-    const { data: res } = yield call(
-      api.delete,
-      `/cliente/vinculo/${cliente.vinculoId}`
-    );
-    yield put(updateCliente({ form: { ...form, saving: false } }));
-
-    if (res.error) {
-      // ALERT DO RSUITE
-      notification("error", {
-        placement: "topStart",
-        title: "Ops...",
-        description: res.message,
-      });
-      return false;
-    }
-
-    notification("success", {
-      placement: "topStart",
-      title: "Tudo certo",
-      description: "O cliente foi desvinculado com sucesso!",
-    });
-
-    yield put(allClientesAction());
-    yield put(
-      updateCliente({
-        components: { ...components, drawer: false, confirmDelete: false },
-      })
-    );
-  } catch (err) {
-    // COLOCAR AQUI O ALERT DO RSUITE
-    yield put(updateCliente({ form: { ...form, saving: false } }));
-    notification("error", {
-      placement: "topStart",
-      title: "Ops...",
-      description: err.message,
-    });
-  }
-}
-
 export default all([
   takeLatest(types.ADD_CLIENTE, addCliente),
   takeLatest(types.FILTER_CLIENTE, filterCliente),
   takeLatest(types.ALL_CLIENTES, allClientes),
-  takeLatest(types.UNLINK_CLIENTE, unlinkCliente),
 ]);

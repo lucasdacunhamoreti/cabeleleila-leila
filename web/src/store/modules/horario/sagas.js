@@ -26,7 +26,6 @@ export function* addHorario() {
     yield put(updateHorario({ form: { ...form, saving: false } }));
 
     if (res.error) {
-      // ALERT DO RSUITE
       notification("error", {
         placement: "topStart",
         title: "Ops...",
@@ -63,7 +62,6 @@ export function* allHorarios() {
     yield put(updateHorario({ form: { ...form, filtering: false } }));
 
     if (res.error) {
-      // ALERT DO RSUITE
       notification("error", {
         placement: "topStart",
         title: "Ops...",
@@ -74,7 +72,6 @@ export function* allHorarios() {
 
     yield put(updateHorario({ horarios: res.horarios }));
   } catch (err) {
-    // COLOCAR AQUI O ALERT DO RSUITE
     yield put(updateHorario({ form: { ...form, filtering: false } }));
     notification("error", {
       placement: "topStart",
@@ -98,7 +95,6 @@ export function* saveHorario() {
     yield put(updateHorario({ form: { ...form, saving: false } }));
 
     if (res.error) {
-      // ALERT DO RSUITE
       notification("error", {
         placement: "topStart",
         title: "Ops...",
@@ -136,7 +132,6 @@ export function* removeHorario() {
     yield put(updateHorario({ form: { ...form, saving: false } }));
 
     if (res.error) {
-      // ALERT DO RSUITE
       notification("error", {
         placement: "topStart",
         title: "Ops...",

@@ -8,7 +8,6 @@ import {
   saveServico,
   allServicos,
   resetServico,
-  removeServico,
 } from "../../store/modules/servico/actions";
 import util from "../../services/util";
 

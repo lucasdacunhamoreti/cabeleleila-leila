@@ -9,7 +9,6 @@ import {
   TagPicker,
   Drawer,
   Modal,
-  // Icon,
   Checkbox,
   DatePicker,
   Button,
@@ -24,8 +23,6 @@ import {
   addHorario,
   removeHorario,
   updateHorario,
-  allServicos,
-  // filterColaboradores,
   saveHorario,
 } from "../../store/modules/horario/actions";
 import util from "../../services/util";
@@ -37,15 +34,9 @@ const localizer = momentLocalizer(moment);
 const Agendamentos = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const dispatch = useDispatch();
-  const {
-    horario,
-    horarios,
-    form,
-    components,
-    behavior,
-    servicos,
-    // colaboradores,
-  } = useSelector((state) => state.horario);
+  const { horario, horarios, form, components, behavior } = useSelector(
+    (state) => state.horario
+  );
 
   const diasDaSemana = [
     "domingo",
@@ -94,8 +85,7 @@ const Agendamentos = () => {
   };
 
   useEffect(() => {
-    // Verificar no localStorage se o usuário é admin
-    const user = JSON.parse(localStorage.getItem("user")); // Ou o método que você usar para armazenar os dados do usuário
+    const user = JSON.parse(localStorage.getItem("user"));
     console.log(user);
 
     if (user && user.cliente.role === "admin") {
@@ -105,7 +95,6 @@ const Agendamentos = () => {
 
   const save = () => {
     if (!util.allFields(horario, ["dias", "inicio", "fim"])) {
-      // DISPARAR O ALERTA
       Notification.error({
         placement: "topStart",
         title: "Calma lá!",
@@ -122,7 +111,6 @@ const Agendamentos = () => {
   };
 
   const remove = () => {
-    // PERFORM REMOVE
     dispatch(removeHorario());
   };
 
@@ -157,7 +145,6 @@ const Agendamentos = () => {
 
   useEffect(() => {
     dispatch(allHorarios());
-    dispatch(allServicos());
   }, []);
 
   return (
