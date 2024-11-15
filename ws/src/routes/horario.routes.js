@@ -13,14 +13,14 @@ router.post("/", async (req, res) => {
 
 router.get("/", async (req, res) => {
   try {
-    const horarios = await new Horario.find();
+    const horarios = await Horario.find();
     res.json({ horarios });
   } catch (err) {
     res.json({ error: true, message: err.message });
   }
 });
 
-router.put("/horarioId", async (req, res) => {
+router.put("/:horarioId", async (req, res) => {
   try {
     const { horarioId } = req.params;
     const horario = req.body;
@@ -32,7 +32,7 @@ router.put("/horarioId", async (req, res) => {
   }
 });
 
-router.delete("/horarioId", async (req, res) => {
+router.delete("/:horarioId", async (req, res) => {
   try {
     const { horarioId } = req.params;
 
