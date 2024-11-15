@@ -83,3 +83,19 @@ yarn start
 yarn install
 yarn start
 ```
+
+### Usuários
+
+#### Há dois tipos de usuários da aplicação:
+
+- Nome: Leila Garcia
+- E-mail: leila@email.com
+- Senha: 12345
+- Obs: Este usuário é o dono do salão, no qual ele tem permissões de administrador. Este usuário pode cadastrar novos clientes, novos serviços, editar e cadastrar horários.
+
+---
+
+- Nome: Usuário cliente
+- E-mail: cliente@email.com
+- Senha: 12345
+- Obs: Este usuário cliente, no qual ele pode apenas cadastrar horários de agendamento.
