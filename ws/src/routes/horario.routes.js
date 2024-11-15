@@ -13,7 +13,7 @@ router.post("/", async (req, res) => {
 
 router.get("/", async (req, res) => {
   try {
-    const horarios = await Horario.find();
+    const horarios = await Horario.find().populate("clienteId");
     res.json({ horarios });
   } catch (err) {
     res.json({ error: true, message: err.message });
