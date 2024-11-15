@@ -91,7 +91,7 @@ yarn start
 - Nome: Leila Garcia
 - E-mail: leila@email.com
 - Senha: 12345
-- Obs: Este usuário é o dono do salão, no qual ele tem permissões de administrador. Este usuário pode cadastrar novos clientes, novos serviços, editar e cadastrar horários.
+- Obs: Este usuário é o dono do salão, no qual ele tem permissões de administrador. Este usuário pode cadastrar novos clientes, novos serviços, editar e cadastrar horários. Por padrão, a senha de um cliente cadastrado é 12345.
 
 ---
 
