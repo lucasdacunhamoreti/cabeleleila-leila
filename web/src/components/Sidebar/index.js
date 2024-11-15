@@ -6,7 +6,6 @@ const Sidebar = () => {
   const location = useLocation();
 
   const isAdmin = user.cliente.role === "admin";
-  const isCustomer = user.cliente.role === "customer";
 
   return (
     <sidebar className="col-2 h-100">
