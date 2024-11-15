@@ -1,70 +1,85 @@
-# Getting Started with Create React App
+# Desafio Técnico - DSIN Tecnologia
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este projeto consiste em uma aplicação fullstack para gerenciamento de um salão de beleza, desenvolvida como parte de um desafio técnico para a empresa DSIN Tecnologia. O sistema inclui um **backend** para gerenciamento de dados e uma **aplicação frontend** para interação do usuário.
 
-## Available Scripts
+## Tecnologias Utilizadas
 
-In the project directory, you can run:
+### Backend
 
-### `npm start`
+- **Node.js**: Plataforma para construção do servidor.
+- **Express**: Framework web para a criação de APIs.
+- **Mongoose**: ODM para integração com MongoDB.
+- **MongoDB Atlas**: Banco de dados NoSQL na nuvem.
+- **Moment.js**: Manipulação e formatação de datas.
+- **Cors**: Configuração de CORS para acesso da API.
+- **Morgan**: Middleware para logging de requisições HTTP.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Frontend
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **React**: Biblioteca para construção de interfaces do usuário.
+- **React Router**: Gerenciamento de rotas no frontend.
+- **Redux e Redux-Saga**: Gerenciamento de estado da aplicação.
+- **Axios**: Cliente HTTP para comunicação com o backend.
+- **React Big Calendar**: Componente para exibição de calendários.
+- **RSuite**: Biblioteca de componentes de UI.
 
-### `npm test`
+### Ferramentas de Apoio
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Insomnia**: Para testar as rotas e endpoints do backend.
+- **MongoDB Compass**: Ferramenta GUI para visualizar e gerenciar dados no MongoDB.
 
-### `npm run build`
+## Funcionalidades
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Backend
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Configurado com **Express** para gerenciamento de rotas e **MongoDB** para persistência de dados.
+- **Endpoints** para CRUD de:
+  - **Agendamentos**.
+  - **Serviços** (não vinculados diretamente aos agendamentos no momento).
+  - **Clientes**.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+###### Observação: Este projeto utiliza o banco de dados MongoDB hospedado no MongoDB Atlas, uma solução em nuvem que facilita a criação, gerenciamento e escalabilidade do banco de dados de forma segura e eficiente. A string de conexão está no código fonte do projeto somente para fim deste projeto.
 
-### `npm run eject`
+### Frontend
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Rotas implementadas:
+  - `/login`: Página de autenticação.
+  - `/agendamentos`: Permite criar e gerenciar agendamentos.
+  - `/servicos`: Lista e cria serviços do salão.
+  - `/clientes`: Criação e listagem de clientes.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Pré-requisitos
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Certifique-se de ter instalado:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- **Node.js** >= 14.x
+- **Yarn**
 
-## Learn More
+## Instalação e Execução
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Clonar o repositório
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+git clone git@github.com:lucasdacunhamoreti/cabeleleila-leila.git
+cd cabeleleila-leila
+```
 
-### Code Splitting
+## Instruções para execução
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Executar Backend
 
-### Analyzing the Bundle Size
+#### Para executar o backend da aplicação acesse a pasta ws, e utilize os seguintes comandos:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+yarn install
+yarn start
+```
 
-### Making a Progressive Web App
+### Executar Web
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+#### Para executar o backend da aplicação acesse a pasta web, e utilize os seguintes comandos:
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+yarn install
+yarn start
+```
