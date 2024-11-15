@@ -10,6 +10,7 @@ import {
   Routes,
   Route,
   useLocation,
+  Navigate,
 } from "react-router-dom";
 import "./styles.css";
 
@@ -36,6 +37,7 @@ const AppRoutes = () => {
     <Router>
       <Layout>
         <Routes>
+          <Route path="/" element={<Navigate to="/login" />} />
           <Route path="/clientes" Component={Clientes} />
           <Route path="/servicos" Component={Servicos} />
           <Route path="/login" Component={Login} />
