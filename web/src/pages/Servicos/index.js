@@ -51,7 +51,6 @@ const Servicos = () => {
         "status",
       ])
     ) {
-      // DISPARAR O ALERTA
       Notification.error({
         placement: "topStart",
         title: "Calma lá!",
@@ -76,10 +75,6 @@ const Servicos = () => {
     );
 
     setComponents("drawer", true);
-  };
-
-  const remove = (servicoId) => {
-    dispatch(removeServico(servicoId));
   };
 
   useEffect(() => {

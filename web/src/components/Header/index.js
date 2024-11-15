@@ -1,13 +1,22 @@
+import { useNavigate } from "react-router-dom";
+
 const Header = () => {
+  // const navigate = useNavigate(); // Hook para navegação
+
+  const logout = () => {
+    localStorage.clear(); // Limpa o localStorage
+    window.location.href = "/login"; // Redireciona para a página de login
+  };
+
   return (
-    <header class="container-fluid d-flex justify-content-end">
-      <div class="d-flex align-items-center">
-        <div class="text-right mr-3">
-          <span class="d-block m-0 p-0 text-white">Barbearia Tal</span>
-          <small class="m-0 p-0">Plano Gold</small>
-        </div>
-        <img src="https://conteudo.imguol.com.br/c/entretenimento/d5/2020/10/07/homem-com-vergonha-1602098705397_v2_450x450.jpg" />
-        <span class="mdi mdi-chevron-down"></span>
+    <header className="container-fluid d-flex justify-content-end">
+      <div
+        className="d-flex align-items-center text-white"
+        onClick={logout}
+        style={{ cursor: "pointer" }}
+      >
+        Sair
+        <span className="mdi mdi-logout" style={{ marginLeft: "5px" }}></span>
       </div>
     </header>
   );

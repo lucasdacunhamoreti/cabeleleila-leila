@@ -15,8 +15,13 @@ export function* addHorario() {
     );
     yield put(updateHorario({ form: { ...form, saving: true } }));
 
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    console.log(user);
+
     const { data: res } = yield call(api.post, "/horario", {
       ...horario,
+      clienteId: user.cliente._id,
     });
     yield put(updateHorario({ form: { ...form, saving: false } }));
 
