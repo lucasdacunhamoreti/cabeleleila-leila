@@ -13,7 +13,6 @@ app.set("port", 8000);
 app.use("/cliente", require("./src/routes/cliente.routes"));
 app.use("/servico", require("./src/routes/servico.routes"));
 app.use("/horario", require("./src/routes/horario.routes"));
-app.use("/agendamento", require("./src/routes/agendamento.routes"));
 app.use("/login", require("./src/routes/login.routes"));
 
 app.listen(app.get("port"), () => {
