@@ -1,11 +1,7 @@
-import { useNavigate } from "react-router-dom";
-
 const Header = () => {
-  // const navigate = useNavigate(); // Hook para navegação
-
   const logout = () => {
-    localStorage.clear(); // Limpa o localStorage
-    window.location.href = "/login"; // Redireciona para a página de login
+    localStorage.clear();
+    window.location.href = "/login";
   };
 
   return (
