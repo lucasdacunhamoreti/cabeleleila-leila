@@ -8,26 +8,16 @@ import {
 import api from "../../../services/api";
 import { notification } from "../../../services/rsuite";
 
-// import consts from "../../../consts";
-
 export function* addServico() {
   const { servico, form, components } = yield select((state) => state.servico);
 
   try {
     yield put(updateServico({ form: { ...form, saving: true } }));
 
-    // const formData = new FormData();
-    // formData.append("servico", JSON.stringify(servico));
-    // formData.append("salaoId", consts.salaoId);
-    // servico.arquivos.map((a, i) => {
-    //   formData.append(`arquivo_${i}`, a);
-    // });
-
     const { data: res } = yield call(api.post, "/servico", servico);
     yield put(updateServico({ form: { ...form, saving: false } }));
 
     if (res.error) {
-      // ALERT DO RSUITE
       notification("error", {
         placement: "topStart",
         title: "Ops...",
@@ -65,7 +55,6 @@ export function* allServicos() {
     yield put(updateServico({ form: { ...form, filtering: false } }));
 
     if (res.error) {
-      // ALERT DO RSUITE
       notification("error", {
         placement: "topStart",
         title: "Ops...",
@@ -76,7 +65,6 @@ export function* allServicos() {
 
     yield put(updateServico({ servicos: res.servicos }));
   } catch (err) {
-    // COLOCAR AQUI O ALERT DO RSUITE
     yield put(updateServico({ form: { ...form, filtering: false } }));
     notification("error", {
       placement: "topStart",
@@ -97,7 +85,6 @@ export function* removeArquivo(payload) {
     yield put(updateServico({ form: { ...form, saving: false } }));
 
     if (res.error) {
-      // ALERT DO RSUITE
       notification("error", {
         placement: "topStart",
         title: "Ops...",
@@ -121,13 +108,6 @@ export function* saveServico() {
   try {
     yield put(updateServico({ form: { ...form, saving: true } }));
 
-    // const formData = new FormData();
-    // formData.append("servico", JSON.stringify(servico));
-    // // formData.append("salaoId", consts.salaoId);
-    // servico.arquivos.map((a, i) => {
-    //   formData.append(`arquivo_${i}`, a);
-    // });
-
     const { data: res } = yield call(
       api.put,
       `/servico/${servico._id}`,
@@ -136,7 +116,6 @@ export function* saveServico() {
     yield put(updateServico({ form: { ...form, saving: false } }));
 
     if (res.error) {
-      // ALERT DO RSUITE
       notification("error", {
         placement: "topStart",
         title: "Ops...",
@@ -174,7 +153,6 @@ export function* removeServico() {
     yield put(updateServico({ form: { ...form, saving: false } }));
 
     if (res.error) {
-      // ALERT DO RSUITE
       notification("error", {
         placement: "topStart",
         title: "Ops...",
@@ -190,7 +168,6 @@ export function* removeServico() {
       })
     );
   } catch (err) {
-    // COLOCAR AQUI O ALERT DO RSUITE
     yield put(updateServico({ form: { ...form, saving: false } }));
     notification("error", {
       placement: "topStart",

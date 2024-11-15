@@ -3,11 +3,11 @@ import types from "./types";
 import moment from "moment";
 
 const INITIAL_STATE = {
-  behavior: "create", // create, update, read
+  behavior: "create",
   components: {
     confirmDelete: false,
     drawer: false,
-    tab: "servicos", // servicos, produtos
+    tab: "servicos",
   },
   form: {
     filtering: false,

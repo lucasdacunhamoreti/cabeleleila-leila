@@ -40,7 +40,6 @@ export function* filterCliente({ filters }) {
     yield put(updateCliente({ form: { ...form, filtering: false } }));
 
     if (res.error) {
-      // ALERT DO RSUITE
       notification("error", {
         placement: "topStart",
         title: "Ops...",
@@ -63,10 +62,7 @@ export function* filterCliente({ filters }) {
         })
       );
     }
-
-    console.log(res.clientes);
   } catch (err) {
-    // COLOCAR AQUI O ALERT DO RSUITE
     yield put(updateCliente({ form: { ...form, filtering: false } }));
     notification("error", {
       placement: "topStart",

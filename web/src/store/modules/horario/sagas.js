@@ -17,8 +17,6 @@ export function* addHorario() {
 
     const user = JSON.parse(localStorage.getItem("user"));
 
-    console.log(user);
-
     const { data: res } = yield call(api.post, "/horario", {
       ...horario,
       clienteId: user.cliente._id,
@@ -147,7 +145,6 @@ export function* removeHorario() {
       })
     );
   } catch (err) {
-    // COLOCAR AQUI O ALERT DO RSUITE
     yield put(updateHorario({ form: { ...form, saving: false } }));
     notification("error", {
       placement: "topStart",
@@ -167,7 +164,6 @@ export function* allServicos() {
     yield put(updateHorario({ form: { ...form, filtering: false } }));
 
     if (res.error) {
-      // ALERT DO RSUITE
       notification("error", {
         placement: "topStart",
         title: "Ops...",
@@ -178,7 +174,6 @@ export function* allServicos() {
 
     yield put(updateHorario({ servicos: res.servicos }));
   } catch (err) {
-    // COLOCAR AQUI O ALERT DO RSUITE
     yield put(updateHorario({ form: { ...form, filtering: false } }));
     notification("error", {
       placement: "topStart",
@@ -188,44 +183,10 @@ export function* allServicos() {
   }
 }
 
-// export function* filterColaboradores() {
-//   const { form, horario } = yield select((state) => state.horario);
-
-//   try {
-//     yield put(updateHorario({ form: { ...form, filtering: true } }));
-
-//     const { data: res } = yield call(api.post, `/horario/colaboradores/`, {
-//       servicos: horario.especialidades,
-//     });
-//     yield put(updateHorario({ form: { ...form, filtering: false } }));
-
-//     if (res.error) {
-//       // ALERT DO RSUITE
-//       notification("error", {
-//         placement: "topStart",
-//         title: "Ops...",
-//         description: res.message,
-//       });
-//       return false;
-//     }
-
-//     yield put(updateHorario({ colaboradores: res.colaboradores }));
-//   } catch (err) {
-//     // COLOCAR AQUI O ALERT DO RSUITE
-//     yield put(updateHorario({ form: { ...form, filtering: false } }));
-//     notification("error", {
-//       placement: "topStart",
-//       title: "Ops...",
-//       description: err.message,
-//     });
-//   }
-// }
-
 export default all([
   takeLatest(types.ADD_HORARIO, addHorario),
   takeLatest(types.ALL_HORARIOS, allHorarios),
   takeLatest(types.REMOVE_HORARIO, removeHorario),
   takeLatest(types.SAVE_HORARIO, saveHorario),
   takeLatest(types.ALL_SERVICOS, allServicos),
-  // takeLatest(types.FILTER_COLABORADORES, filterColaboradores),
 ]);

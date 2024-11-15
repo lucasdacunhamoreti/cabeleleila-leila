@@ -16,7 +16,6 @@ import "./styles.css";
 const Layout = ({ children }) => {
   const location = useLocation();
 
-  // Verifica se a rota atual é "/login"
   const isLoginPage = location.pathname === "/login";
 
   return (

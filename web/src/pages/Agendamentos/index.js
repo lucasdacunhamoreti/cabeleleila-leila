@@ -83,7 +83,6 @@ const Agendamentos = () => {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-    console.log(user);
 
     if (user && user.cliente.role === "admin") {
       setIsAdmin(true);
@@ -116,8 +115,6 @@ const Agendamentos = () => {
 
     horarios.map((hor, index) => {
       hor.dias.map((dia) => {
-        console.log(hor);
-
         listaEventos.push({
           resource: { horario: hor, backgroundColor: colors[index] },
           title: `Cliente: ${hor.clienteId.nome}`,
