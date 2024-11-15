@@ -34,10 +34,8 @@ const Sidebar = () => {
         </li>
         <li>
           <Link
-            to="/horarios-atendimento"
-            className={
-              location.pathname === "/horarios-atendimento" ? "active" : ""
-            }
+            to="/horarios"
+            className={location.pathname === "/horarios" ? "active" : ""}
           >
             <span className="mdi mdi-clock-check-outline"></span>
             <span>Horários</span>

@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./styles.css";
 import Clientes from "./pages/Clientes";
 import Servicos from "./pages/Servicos";
+import Horarios from "./pages/Horarios";
 
 const AppRoutes = () => {
   return (
@@ -20,6 +21,7 @@ const AppRoutes = () => {
               <Route path="/" exact Component={Agendamentos} />
               <Route path="/clientes" Component={Clientes} />
               <Route path="/servicos" Component={Servicos} />
+              <Route path="/horarios" Component={Horarios} />
             </Routes>
           </Router>
         </div>
