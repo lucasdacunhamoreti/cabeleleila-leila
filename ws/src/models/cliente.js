@@ -33,6 +33,12 @@ const cliente = new Schema({
     enum: ["A", "I"],
     default: "A",
   },
+  role: {
+    type: String,
+    required: true,
+    enum: ["admin", "customer"],
+    default: "customer",
+  },
   createdAt: {
     type: Date,
     default: Date.now,
