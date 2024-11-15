@@ -1,4 +1,4 @@
-import { Table, Toggle, Placeholder, Loader } from "rsuite";
+import { Table, Loader } from "rsuite";
 import React from "react";
 
 import "rsuite/dist/rsuite.min.css";
@@ -17,15 +17,19 @@ const TableComponent = ({ data, config, actions, onRowClick, loading }) => {
       renderLoading={renderLoading}
       onRowClick={onRowClick}
       locale={{
-        emptyMessage: "Não há clientes cadastrados",
+        emptyMessage: "Não há cadastros",
       }}
     >
       {config.map((column) => {
-        const { key, label, ...rest } = column;
+        const { key, label, content, ...rest } = column;
         return (
           <Column {...rest} key={key}>
             <HeaderCell>{label}</HeaderCell>
-            <Cell dataKey={key} />
+            {!content ? (
+              <Cell dataKey={key} />
+            ) : (
+              <Cell dataKey={key}>{(item) => content(item[key])}</Cell>
+            )}
           </Column>
         );
       })}

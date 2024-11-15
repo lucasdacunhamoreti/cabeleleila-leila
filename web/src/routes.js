@@ -5,6 +5,7 @@ import Agendamentos from "./pages/Agendamentos";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./styles.css";
 import Clientes from "./pages/Clientes";
+import Servicos from "./pages/Servicos";
 
 const AppRoutes = () => {
   return (
@@ -18,6 +19,7 @@ const AppRoutes = () => {
             <Routes>
               <Route path="/" exact Component={Agendamentos} />
               <Route path="/clientes" Component={Clientes} />
+              <Route path="/servicos" Component={Servicos} />
             </Routes>
           </Router>
         </div>
