@@ -48,15 +48,12 @@ const Agendamentos = () => {
     "sábado",
   ];
 
-  const diasSemanaData = [
-    new Date(2021, 3, 11, 0, 0, 0, 0),
-    new Date(2021, 3, 12, 0, 0, 0, 0),
-    new Date(2021, 3, 13, 0, 0, 0, 0),
-    new Date(2021, 3, 14, 0, 0, 0, 0),
-    new Date(2021, 3, 15, 0, 0, 0, 0),
-    new Date(2021, 3, 16, 0, 0, 0, 0),
-    new Date(2021, 3, 17, 0, 0, 0, 0),
-  ];
+  const getDiasSemanaData = () => {
+    const startOfWeek = moment().startOf("week");
+    return Array.from({ length: 7 }, (_, i) =>
+      startOfWeek.clone().add(i, "days").toDate()
+    );
+  };
 
   const setHorario = (key, value) => {
     dispatch(
@@ -125,13 +122,13 @@ const Agendamentos = () => {
           resource: { horario: hor, backgroundColor: colors[index] },
           title: `Cliente: ${hor.clienteId.nome}`,
           start: new Date(
-            diasSemanaData[dia].setHours(
+            getDiasSemanaData()[dia].setHours(
               parseInt(moment(hor.inicio).format("HH")),
               parseInt(moment(hor.inicio).format("mm"))
             )
           ),
           end: new Date(
-            diasSemanaData[dia].setHours(
+            getDiasSemanaData()[dia].setHours(
               parseInt(moment(hor.fim).format("HH")),
               parseInt(moment(hor.fim).format("mm"))
             )
@@ -384,7 +381,7 @@ const Agendamentos = () => {
                 },
               };
             }}
-            date={diasSemanaData[moment().day()]}
+            date={getDiasSemanaData()[moment().day()]}
             view={components.view}
             selectable={true}
             popup={true}
