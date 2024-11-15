@@ -32,6 +32,8 @@ const localizer = momentLocalizer(moment);
 
 const Agendamentos = () => {
   const [isAdmin, setIsAdmin] = useState(false);
+  const [user, setUser] = useState();
+
   const dispatch = useDispatch();
   const { horario, horarios, form, components, behavior } = useSelector(
     (state) => state.horario
@@ -84,7 +86,7 @@ const Agendamentos = () => {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-
+    setUser(user);
     if (user && user.cliente.role === "admin") {
       setIsAdmin(true);
     }
@@ -118,7 +120,10 @@ const Agendamentos = () => {
       hor.dias.map((dia) => {
         listaEventos.push({
           resource: { horario: hor, backgroundColor: colors[index] },
-          title: `Cliente: ${hor.clienteId.nome}`,
+          title:
+            hor.clienteId.role === "admin"
+              ? `Criado por Leila (Profisisonal)`
+              : `Cliente: ${hor.clienteId.nome}`,
           start: new Date(
             getDiasSemanaData()[dia].setHours(
               parseInt(moment(hor.inicio).format("HH")),
