@@ -84,6 +84,8 @@ yarn install
 yarn start
 ```
 
+#### Para acessar a aplicação acesse: http://localhost:3000
+
 ### Usuários
 
 #### Há dois tipos de usuários da aplicação:
